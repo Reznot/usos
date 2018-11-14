@@ -5,15 +5,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+//TODO: zapytać mistrza o te klasy, różnice między studentem a pracownikiem, jak to rozegrać
+
 @Data
 @AllArgsConstructor
-public class PersonDTO implements Serializable {
+public class PersonShortDTO implements Serializable {
     private int id;
-    private int index;
-    private String  pesel;
-    private int status;
     private String name;
     private String surname;
-    private String titles;
-    private String mail;
 }
+
