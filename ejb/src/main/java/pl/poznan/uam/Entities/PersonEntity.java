@@ -17,6 +17,10 @@ public class PersonEntity implements Serializable {
 
     }
 
+    public PersonEntity(long aId){
+        id = aId;
+    }
+
     public PersonEntity(Long id, int index, String pesel, int status, String name, String surname, String titles, String mail){
         this.id = id;
         this.index = index;
