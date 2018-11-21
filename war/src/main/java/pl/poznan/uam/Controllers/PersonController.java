@@ -19,8 +19,8 @@ public class PersonController {
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
 
-        PersonShortDTO person1 = new PersonShortDTO(1, "Hubert", "Staszek");
-        PersonShortDTO person2 = new PersonShortDTO(2, "Łukasz", "Siwocha");
+        PersonShortDTO person1 = new PersonShortDTO(1l, "Hubert", "Staszek");
+        PersonShortDTO person2 = new PersonShortDTO(2l, "Łukasz", "Siwocha");
 
         ArrayList<PersonShortDTO> personList = new ArrayList<>();
         personList.add(person1);
@@ -33,7 +33,7 @@ public class PersonController {
     @Path("{id}")
     @Produces("application/json; charset=UTF-8")
     public Response getById(@PathParam("id") int id) {
-        PersonDTO person = new PersonDTO(1, 123456, "00998876543", 1,
+        PersonDTO person = new PersonDTO(1l, 123456, "00998876543", 1,
                 "Hubert", "Staszek", "dr inż", "kappa@gmail.com");
     return Response.status(200).entity(person).build();
     }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 public class PersonDTO implements Serializable {
-    private int id;
+    private Long id;
     private int index;
     private String  pesel;
     private int status;

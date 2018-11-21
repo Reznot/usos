@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 public class PersonShortDTO implements Serializable {
-    private int id;
+    private Long id;
     private String name;
     private String surname;
 }
