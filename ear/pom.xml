@@ -21,6 +21,40 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>2.0.0.Final</version>
+                <configuration>
+                    <hostname>127.0.0.1</hostname>
+                    <port>9990</port>
+                    <username>Reznot</username>
+                    <password>tu daj password do wildfly</password>
+                    <name>ear.ear</name>
+                </configuration>
+                <executions>
+                    <!-- Undeploy the application on clean -->
+                    <execution>
+                        <id>undeploy</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>undeploy</goal>
+                        </goals>
+                        <configuration>
+                            <ignoreMissingDeployment>true</ignoreMissingDeployment>
+                        </configuration>
+                    </execution>
+
+                    <!-- Deploy the application on install -->
+                    <execution>
+                        <id>deploy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -40,5 +74,21 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>pl.poznan.uam</groupId>
+            <artifactId>ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>pl.poznan.uam</groupId>
+            <artifactId>war</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
     
 </project>
