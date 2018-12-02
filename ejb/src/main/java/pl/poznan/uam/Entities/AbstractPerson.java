@@ -53,7 +53,9 @@ public class AbstractPerson {
         this.surname = surname;
     }
 
+    //TODO set persistence xml
     //TODO stanowisko dla prowadzacego, tytul,
     //TODO kurs studiow, pesel, status, index
+    //wroc do starej koncepcji
 
 }
