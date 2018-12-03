@@ -2,30 +2,35 @@ package pl.poznan.uam.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
 public class SubjectGroupEntity extends AbstractEntity{
 
-//    @OneToOne
-//    private PersonEntity personEntity;
+    @ManyToMany
+    private Set<PersonEntity> students;
 
-//    @OneToMany
-//    private SubjectEntity subjectEntity;
+    //TODO: czy to zadziala?
+    // chyba tak!
+    @ManyToOne
+    private PersonEntity prowadzacy;
 
-//    @ManyToMany
-//    private Set<PersonEntity> students;
+    @ManyToOne
+    private SubjectEntity subject;
+
+    @OneToMany(mappedBy = "gradeFromSubject")
+    private Set<GradeEntity> grades;
 
     private int numberOfStudents;
     private int availablePlaces;
     private String groupShortcut;
-    private String term;
-
+    private Date heldDate;
+    //TODO zrobic z tego enuma
+    private String typZajec;
 
 
 }
