@@ -21,24 +21,55 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>2.0.0.Final</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <hostname>127.0.0.1</hostname>
+                    <port>9990</port>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <name>ear.ear</name>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ear-plugin</artifactId>
-                <version>2.8</version>
-                <configuration>
-                    <version>6</version>
-                    <defaultLibBundleDir>lib</defaultLibBundleDir>
-                </configuration>
+                <executions>
+                    <!-- Undeploy the application on clean -->
+                    <execution>
+                        <id>undeploy</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>undeploy</goal>
+                        </goals>
+                        <configuration>
+                            <ignoreMissingDeployment>true</ignoreMissingDeployment>
+                        </configuration>
+                    </execution>
+
+                    <!-- Deploy the application on install -->
+                    <execution>
+                        <id>deploy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>pl.poznan.uam</groupId>
+            <artifactId>ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>pl.poznan.uam</groupId>
+            <artifactId>war</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
     
 </project>
