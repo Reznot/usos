@@ -3,6 +3,7 @@ package pl.poznan.uam.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @MappedSuperclass
@@ -15,4 +16,12 @@ public abstract class AbstractEntity {
     private Long id;
     private String uuid;
     private String comment;
+
+    //TODO
+//    @PrePersist
+//    public void init() {
+//        if (uuid == null) {
+//            uuid = UUID.randomUUID().toString();
+//        }
+//    }
 }

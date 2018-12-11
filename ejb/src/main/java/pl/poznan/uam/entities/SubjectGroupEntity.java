@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,10 +13,8 @@ public class SubjectGroupEntity extends AbstractEntity{
     @ManyToMany
     private Set<PersonEntity> students;
 
-    //TODO: czy to zadziala?
-    // chyba tak!
     @ManyToOne
-    private PersonEntity prowadzacy;
+    private PersonEntity lecturer;
 
     @ManyToOne
     private SubjectEntity subject;
@@ -30,7 +27,7 @@ public class SubjectGroupEntity extends AbstractEntity{
     private String groupShortcut;
     private Date heldDate;
     //TODO zrobic z tego enuma
-    private String typZajec;
+    private String classType;
 
 
 }

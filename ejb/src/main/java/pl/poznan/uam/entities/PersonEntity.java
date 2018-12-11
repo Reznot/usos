@@ -3,7 +3,6 @@ package pl.poznan.uam.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -20,7 +19,7 @@ public class PersonEntity extends AbstractEntity{
     private String position;
     @ManyToMany
     private Set<SubjectGroupEntity> subjectGroups;
-    @OneToMany(mappedBy = "prowadzacy")
+    @OneToMany(mappedBy = "lecturer")
     private Set<SubjectGroupEntity> prowadzonagrupa;
     @OneToMany(mappedBy = "person")
     private Set<GradeEntity> grades;
