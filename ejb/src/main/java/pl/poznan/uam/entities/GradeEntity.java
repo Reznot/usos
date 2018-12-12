@@ -17,7 +17,7 @@ public class GradeEntity extends AbstractEntity {
     private SubjectGroupEntity gradeFromSubject;
 
     @ManyToOne
-    private SubjectEntity subject;
+    private SubjectEntity subject1;
 
     private int grade;
 
