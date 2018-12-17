@@ -1,10 +1,8 @@
 package pl.poznan.uam.entities;
 
-import com.sun.org.apache.xpath.internal.axes.SubContextList;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.Set;
 

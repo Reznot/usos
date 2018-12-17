@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 public class SubjectGroupEntity extends AbstractEntity{
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "subjectGroups")
     private Set<PersonEntity> students;
 
     @ManyToOne
@@ -28,6 +28,4 @@ public class SubjectGroupEntity extends AbstractEntity{
     private Date heldDate;
     //TODO zrobic z tego enuma
     private String classType;
-
-
 }

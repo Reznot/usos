@@ -17,10 +17,15 @@ public class PersonEntity extends AbstractEntity{
     private String titles;
     private int statusStance;
     private String position;
+
     @ManyToMany
     private Set<SubjectGroupEntity> subjectGroups;
+
     @OneToMany(mappedBy = "lecturer")
-    private Set<SubjectGroupEntity> prowadzonagrupa;
+    private Set<SubjectGroupEntity> lecturedGroup;
+
     @OneToMany(mappedBy = "person")
     private Set<GradeEntity> grades;
+
+
 }
