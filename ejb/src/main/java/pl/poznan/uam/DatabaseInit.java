@@ -31,7 +31,6 @@ public class DatabaseInit {
     @PostConstruct
     public void init(){
         PersonEntity person1 = new PersonEntity();
-
         person1.setName("Hubert");
         person1.setSurname("Staszek");
         person1.setEmail("hubsta1@st.amu.edu.pl");
@@ -47,6 +46,14 @@ public class DatabaseInit {
         person2.setPosition("prowadzący");
         person2.setTitles("profesor");
 
+        PersonEntity person3 = new PersonEntity();
+        person3.setName("Konrad");
+        person3.setSurname("Sobaniec");
+        person3.setEmail("konsob1@st.amu.edu.pl");
+        person3.setIndexNumber(426254);
+        person3.setPesel("12345678901");
+        person3.setPosition("student");
+
         SubjectEntity subject = new SubjectEntity();
         subject.setSubjectName("Wstęp do Rachunku Prawdopodobieństwa");
         subject.setSemester("lato");
@@ -60,6 +67,7 @@ public class DatabaseInit {
         subjectGroup.setGroupShortcut("1CA");
         Set<PersonEntity> studentList = new HashSet<>();
         studentList.add(person1);
+        studentList.add(person3);
         subjectGroup.setStudents(studentList);
         subjectGroup.setNumberOfStudents(studentList.size());
         subjectGroup.setLecturer(person2);
@@ -75,6 +83,7 @@ public class DatabaseInit {
 
         em.persist(person1);
         em.persist(person2);
+        em.persist(person3);
         em.persist(subject);
         em.persist(subjectGroup);
         em.persist(grade);

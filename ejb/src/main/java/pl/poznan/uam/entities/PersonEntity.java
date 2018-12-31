@@ -1,12 +1,16 @@
 package pl.poznan.uam.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class PersonEntity extends AbstractEntity{
 //TODO przemyśleć uprawnienia usera do dodawania ocen, jakie pole permission
     private int indexNumber;
@@ -18,7 +22,7 @@ public class PersonEntity extends AbstractEntity{
     private int statusStance;
     private String position;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "students")
     private Set<SubjectGroupEntity> subjectGroups;
 
     @OneToMany(mappedBy = "lecturer")
@@ -27,5 +31,35 @@ public class PersonEntity extends AbstractEntity{
     @OneToMany(mappedBy = "person")
     private Set<GradeEntity> grades;
 
+    public PersonEntity(long id) {
+        super(id);
+    }
 
+    public void addSubjectGroup(SubjectGroupEntity subjectGroup) {
+        this.subjectGroups.add(subjectGroup);
+    }
+
+    public SubjectGroupEntity returnSubjectGroup() {
+        return subjectGroups.stream().findAny().get();
+    }
+    public SubjectGroupEntity returnLecturedGroup() {
+        return lecturedGroup.stream().findAny().get();
+    }
+    public GradeEntity returnGrade() {
+        return grades.stream().findAny().get();
+    }
+
+    public void update(PersonEntity person) {
+        indexNumber=person.getIndexNumber();
+        pesel = person.getPesel();
+        name = person.getName();
+        surname = person.getSurname();
+        email = person.getEmail();
+        titles = person.getTitles();
+        statusStance = getStatusStance();
+        position=person.getPosition();
+        subjectGroups.add(person.returnSubjectGroup());
+        lecturedGroup.add(person.returnLecturedGroup());
+        grades.add(person.returnGrade());
+    }
 }
