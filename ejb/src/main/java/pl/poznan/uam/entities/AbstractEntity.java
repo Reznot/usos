@@ -25,11 +25,10 @@ public abstract class AbstractEntity {
         this.id = id;
     }
 
-    //TODO
-//    @PrePersist
-//    public void init() {
-//        if (uuid == null) {
-//            uuid = UUID.randomUUID().toString();
-//        }
-//    }
+    @PrePersist
+    public void init() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
+    }
 }

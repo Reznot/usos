@@ -2,6 +2,7 @@ package pl.poznan.uam.Controllers;
 
 
 import pl.poznan.uam.DAO.PersonDAO;
+import pl.poznan.uam.DTOs.EmployeeDTO;
 import pl.poznan.uam.DTOs.PersonDTO;
 import pl.poznan.uam.DTOs.PersonShortDTO;
 import pl.poznan.uam.DTOs.StudentDTO;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("person")
+@Path("people")
 public class PersonController {
 
     @EJB
@@ -39,12 +40,12 @@ public class PersonController {
     }
 
     @POST
-    @Path("addPerson")
+    @Path("addEmployee")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public Response addPerson(PersonDTO personDTO) {
-        PersonEntity personEnt = personDAO.addPerson(PersonToEntity.toEntity(personDTO));
-        PersonDTO finalPersonDTO = new PersonDTO(personEnt);
-        return Response.status(201).entity(finalPersonDTO).build();
+    public Response addEmployee(EmployeeDTO employeeDTO) {
+        PersonEntity personEnt = personDAO.addPerson(PersonToEntity.employeeToEntity(employeeDTO));
+        EmployeeDTO finalEmployeeDTO = new EmployeeDTO(personEnt);
+        return Response.status(201).entity(finalEmployeeDTO).build();
     }
 }

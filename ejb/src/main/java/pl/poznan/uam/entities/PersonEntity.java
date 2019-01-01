@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 public class PersonEntity extends AbstractEntity{
-//TODO przemyśleć uprawnienia usera do dodawania ocen, jakie pole permission
+
     private int indexNumber;
     private String pesel;
     private String name;
