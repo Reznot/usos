@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 public class SubjectGroupEntity extends AbstractEntity{
 
-    @ManyToMany(mappedBy = "subjectGroups")
+    @ManyToMany
     private Set<PersonEntity> students;
 
     @ManyToOne

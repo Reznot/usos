@@ -1,12 +1,16 @@
 package pl.poznan.uam.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Data
 @MappedSuperclass
+@NoArgsConstructor
+@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
 public abstract class AbstractEntity {
@@ -16,6 +20,11 @@ public abstract class AbstractEntity {
     private Long id;
     private String uuid;
     private String comment;
+
+    public AbstractEntity(Long id) {
+        this.id = id;
+    }
+
 
     //TODO
 //    @PrePersist
