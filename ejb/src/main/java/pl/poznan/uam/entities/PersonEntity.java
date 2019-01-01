@@ -62,4 +62,5 @@ public class PersonEntity extends AbstractEntity{
         lecturedGroup.add(person.returnLecturedGroup());
         grades.add(person.returnGrade());
     }
+
 }

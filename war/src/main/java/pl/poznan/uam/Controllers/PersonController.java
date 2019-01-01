@@ -1,41 +1,50 @@
 package pl.poznan.uam.Controllers;
 
 
+import pl.poznan.uam.DAO.PersonDAO;
 import pl.poznan.uam.DTOs.PersonDTO;
 import pl.poznan.uam.DTOs.PersonShortDTO;
+import pl.poznan.uam.DTOs.StudentDTO;
+import pl.poznan.uam.Utils.PersonToEntity;
+import pl.poznan.uam.entities.PersonEntity;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ejb.EJB;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("person")
 public class PersonController {
 
+    @EJB
+    private PersonDAO personDAO;
+
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
-
-        PersonShortDTO person1 = new PersonShortDTO(1, "Hubert", "Staszek");
-        PersonShortDTO person2 = new PersonShortDTO(2, "Łukasz", "Siwocha");
-
-        ArrayList<PersonShortDTO> personList = new ArrayList<>();
-        personList.add(person1);
-        personList.add(person2);
-
-        return Response.status(200).entity(personList).build();
+        List<PersonDTO> ret = personDAO.getAll().stream().map(PersonDTO::new).collect(Collectors.toList());
+        return Response.status(200).entity(ret).build();
     }
 
-    @GET
-    @Path("{id}")
+    @POST
+    @Path("addStudent")
+    @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public Response getById(@PathParam("id") int id) {
-        PersonDTO person = new PersonDTO(1, 123456, "00998876543", 1,
-                "Hubert", "Staszek", "dr inż", "kappa@gmail.com");
-    return Response.status(200).entity(person).build();
+    public Response addStudent(StudentDTO studentDTO) {
+        PersonEntity personEnt = personDAO.addPerson(PersonToEntity.studentToEntity(studentDTO));
+        StudentDTO finalStudentDTO = new StudentDTO(personEnt);
+        return Response.status(201).entity(finalStudentDTO).build();
     }
 
+    @POST
+    @Path("addPerson")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Response addPerson(PersonDTO personDTO) {
+        PersonEntity personEnt = personDAO.addPerson(PersonToEntity.toEntity(personDTO));
+        PersonDTO finalPersonDTO = new PersonDTO(personEnt);
+        return Response.status(201).entity(finalPersonDTO).build();
+    }
 }
