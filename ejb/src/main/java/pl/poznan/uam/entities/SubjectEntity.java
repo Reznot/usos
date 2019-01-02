@@ -26,4 +26,30 @@ public class SubjectEntity extends AbstractEntity{
     //TODO: czy 2 te same subjecty nie beda sie gryzc ze soba?
     @OneToMany(mappedBy = "subject1")
     private Set<GradeEntity> grades;
+
+    public void addSubjectGroup(SubjectGroupEntity newSubjectGroup){
+        this.subjectGroup.add(newSubjectGroup);
+    }
+
+    public void addGrade(GradeEntity newGrade){
+        this.grades.add(newGrade);
+    }
+
+    public SubjectGroupEntity returnSubjectGroup(){
+        return subjectGroup.stream().findAny().get();
+    }
+
+    public GradeEntity returnGrade(){
+        return grades.stream().findAny().get();
+    }
+
+    public void update(SubjectEntity subject){
+        subjectName = subject.getSubjectName();
+        subjectCode = subject.getSubjectCode();
+        semester = subject.getSemester();
+        year = subject.getYear();
+
+        subjectGroup.add(subject.returnSubjectGroup());
+        grades.add(subject.returnGrade());
+    }
 }

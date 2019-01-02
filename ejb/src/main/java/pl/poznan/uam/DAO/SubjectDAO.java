@@ -34,5 +34,11 @@ public class SubjectDAO {
         subjectSet.remove(new SubjectEntity(id));
     }
 
+    public SubjectEntity update(SubjectEntity subjectEntity){
+        SubjectEntity subjectFromDB = getSubjectById(subjectEntity.getId()).get();
+        subjectFromDB.update(subjectEntity);
+        SubjectEntity ret = em.merge(subjectEntity);
+        return ret;
+    }
 
 }
