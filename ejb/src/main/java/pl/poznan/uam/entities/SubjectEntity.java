@@ -1,6 +1,7 @@
 package pl.poznan.uam.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -8,7 +9,13 @@ import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class SubjectEntity extends AbstractEntity{
+
+    public SubjectEntity(long id){
+        super(id);
+    }
+
     //TODO: id jako oznaczenie przedmotu+ rok np. DWRP2019
     private String subjectName;
     private String subjectCode;
