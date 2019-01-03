@@ -73,7 +73,7 @@ public class DatabaseInit {
         subjectGroup.setNumberOfStudents(studentList.size());
         subjectGroup.setLecturer(person2);
         //todo lepiej ta date wpisz
-        subjectGroup.setHeldDate(Date.valueOf("2014-02-10"));
+        subjectGroup.setHeldDate("2014-02-10");
 
         GradeEntity grade = new GradeEntity();
         grade.setGrade(5);

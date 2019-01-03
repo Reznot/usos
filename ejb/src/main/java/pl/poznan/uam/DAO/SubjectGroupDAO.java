@@ -9,7 +9,8 @@ import java.util.*;
 
 @Stateless
 public class SubjectGroupDAO {
-    @PersistenceContext(unitName = "primaryGroup")//nie wiem czy tak powinno zostac
+
+    @PersistenceContext(unitName = "primary")//nie wiem czy tak powinno byc
     protected EntityManager em;
     private Set<SubjectGroupEntity> subjectGroupSet = new HashSet<>();
 
