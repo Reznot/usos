@@ -21,6 +21,7 @@ public class SubjectEntity extends AbstractEntity{
     private String subjectCode;
     private String semester;
     private int year;
+    private int etcs;
     @OneToMany(mappedBy = "subject")
     private Set<SubjectGroupEntity> subjectGroup;
     //TODO: czy 2 te same subjecty nie beda sie gryzc ze soba?
@@ -48,6 +49,7 @@ public class SubjectEntity extends AbstractEntity{
         subjectCode = subject.getSubjectCode();
         semester = subject.getSemester();
         year = subject.getYear();
+        etcs = subject.getEtcs();
 
         subjectGroup.add(subject.returnSubjectGroup());
         grades.add(subject.returnGrade());

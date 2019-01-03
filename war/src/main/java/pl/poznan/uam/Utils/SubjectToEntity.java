@@ -11,6 +11,7 @@ public class SubjectToEntity {
         subjectEntity.setSubjectCode(subjectDTO.getSubjectCode());
         subjectEntity.setSemester(subjectDTO.getSemester());
         subjectEntity.setYear(subjectDTO.getYear());
+        subjectEntity.setEtcs(subjectDTO.getEtcs());
         return subjectEntity;
     }
 }

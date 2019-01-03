@@ -15,11 +15,13 @@ public class SubjectDTO implements Serializable {
     private String subjectCode;
     private String semester;
     private int year;
+    private int etcs;
 
     public SubjectDTO(SubjectEntity subjectEntity){
         subjectName = subjectEntity.getSubjectName();
         subjectCode = subjectEntity.getSubjectCode();
         semester = subjectEntity.getSemester();
         year = subjectEntity.getYear();
+        etcs = subjectEntity.getEtcs();
     }
 }
