@@ -36,4 +36,15 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
+    @GET
+    @Path("classtype")
+    @Produces("application/json; charset=UTF-8")
+    public Response getByClassType(@Context UriInfo info){
+        String classtype = info.getQueryParameters().getFirst("type");
+
+        List<SubjectGroupDTO> ret = subjectGroupDAO.getAll().stream().filter(sg -> sg.getClassType().equals(classtype)).map(SubjectGroupDTO::new).collect(Collectors.toList());
+        return Response.status(200).entity(ret).build();
+    }
+
+    //TODO metody do wyciagania po przedmiocie, prowadzcym itd w DAO, nowe dtos
 }
