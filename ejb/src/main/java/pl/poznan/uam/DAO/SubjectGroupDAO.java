@@ -5,6 +5,7 @@ import pl.poznan.uam.entities.SubjectGroupEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.*;
 
 @Stateless
@@ -25,6 +26,11 @@ public class SubjectGroupDAO {
     public SubjectGroupEntity addSubjectGroup(SubjectGroupEntity subjectGroup){
         em.persist(subjectGroup);
         return subjectGroup;
+    }
+
+    public List<SubjectGroupEntity> getSubjectGroupByLecturer(){
+        //TypedQuery<SubjectGroupEntity> q =
+        return em.createQuery("SELECT sg FROM SubjectGroupEntity sg join fetch sg.lecturer", SubjectGroupEntity.class).getResultList();
     }
 
     //TODO remove

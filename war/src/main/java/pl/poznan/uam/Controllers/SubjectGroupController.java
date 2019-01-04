@@ -2,6 +2,7 @@ package pl.poznan.uam.Controllers;
 
 import pl.poznan.uam.DAO.SubjectGroupDAO;
 import pl.poznan.uam.DTOs.SubjectGroupDTO;
+import pl.poznan.uam.DTOs.SubjectGroupLecturedByDTO;
 import pl.poznan.uam.DTOs.SubjectGroupShortDTO;
 import pl.poznan.uam.Utils.SubjectGroupToEntity;
 import pl.poznan.uam.entities.SubjectGroupEntity;
@@ -47,6 +48,16 @@ public class SubjectGroupController {
         String classtype = info.getQueryParameters().getFirst("type");
 
         List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().filter(sg -> sg.getClassType().equals(classtype)).map(SubjectGroupShortDTO::new).collect(Collectors.toList());
+        return Response.status(200).entity(ret).build();
+    }
+
+    @GET
+    @Path("lecturedBy")
+    @Produces("application/json; charset=UTF-8")
+    public Response getByLecturer(@Context UriInfo info) {
+        long lecturer_id = Integer.valueOf(info.getQueryParameters().getFirst("id"));
+
+        List<SubjectGroupLecturedByDTO> ret = subjectGroupDAO.getSubjectGroupByLecturer().stream().filter(sg -> sg.getLecturer_id() == lecturer_id).map(SubjectGroupLecturedByDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(ret).build();
     }
 
