@@ -35,6 +35,22 @@ public class SubjectGroupEntity extends AbstractEntity{
         super(Id);
     }
 
+    public long getLecturer_id(){
+        return lecturer.getId();
+    }
+
+    public long getSubject_id(){
+        return subject.getId();
+    }
+
+    public void addLecturer(PersonEntity lecturer){
+        this.lecturer = lecturer;
+    }
+
+    public void addSubject(SubjectEntity subject){
+        this.subject = subject;
+    }
+
     public PersonEntity returnStudents(){
         return students.stream().findAny().get();
     }

@@ -2,6 +2,8 @@ package pl.poznan.uam.Controllers;
 
 import pl.poznan.uam.DAO.SubjectGroupDAO;
 import pl.poznan.uam.DTOs.SubjectGroupDTO;
+import pl.poznan.uam.Utils.SubjectGroupToEntity;
+import pl.poznan.uam.entities.SubjectGroupEntity;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -19,6 +21,7 @@ public class SubjectGroupController {
     @EJB
     private SubjectGroupDAO subjectGroupDAO;
 
+    //TODO nowe dto na gety
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
@@ -46,5 +49,14 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
-    //TODO metody do wyciagania po przedmiocie, prowadzcym itd w DAO, nowe dtos
+    @POST
+    @Path("addSubjectGroup")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Response addSubjectGroup (SubjectGroupDTO subjectGroupDTO){
+        SubjectGroupEntity subjectGroupEnt = subjectGroupDAO.addSubjectGroup(SubjectGroupToEntity.subjectGroupToEntity(subjectGroupDTO));
+        SubjectGroupDTO finalSubjectGroupDTO = new SubjectGroupDTO(subjectGroupEnt);
+        return Response.status(201).entity(finalSubjectGroupDTO).build();
+    }
+    //TODO metody do wyciagania po przedmiocie, prowadzcym itd w DAO, nowe dtos, zmapowanie encji subjectGroup_Person
 }

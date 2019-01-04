@@ -13,11 +13,14 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectGroupDTO implements Serializable {
+    private long id;
     private int numberOfStudents;
     private int availablePlaces;
     private String groupShortcut;
     private String heldDate;
     private String classType;
+    private long lecturer_id;
+    private long subject_id;
 
     public SubjectGroupDTO(SubjectGroupEntity subjectGroup){
         numberOfStudents = subjectGroup.getNumberOfStudents();
@@ -25,5 +28,17 @@ public class SubjectGroupDTO implements Serializable {
         groupShortcut = subjectGroup.getGroupShortcut();
         heldDate = subjectGroup.getHeldDate();
         classType = subjectGroup.getClassType();
+    }
+
+    public long getLecturer_id(){
+        return lecturer_id;
+    }
+
+    public long getSubject_id(){
+        return subject_id;
+    }
+
+    public long getId(){
+        return id;
     }
 }
