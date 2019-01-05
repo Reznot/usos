@@ -28,7 +28,7 @@ public class SubjectGroupLecturedByDTO implements Serializable {
         heldDate = subjectGroup.getHeldDate();
         classType = subjectGroup.getClassType();
         lecturer_id = subjectGroup.getLecturer_id();
-        name = new PersonEntity(subjectGroup.getLecturer_id()).getName();
+        name = new PersonEntity(lecturer_id).getSurname();
     }
 
     public String getName(){

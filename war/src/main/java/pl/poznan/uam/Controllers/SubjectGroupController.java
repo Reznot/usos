@@ -23,7 +23,6 @@ public class SubjectGroupController {
     @EJB
     private SubjectGroupDAO subjectGroupDAO;
 
-    //TODO nowe dto na gety
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
@@ -52,12 +51,12 @@ public class SubjectGroupController {
     }
 
     @GET
-    @Path("lecturedBy")
+    @Path("lecturedBy")                                                                     //map(SubjectGroupLecturedByDTO::new
     @Produces("application/json; charset=UTF-8")
     public Response getByLecturer(@Context UriInfo info) {
         long lecturer_id = Integer.valueOf(info.getQueryParameters().getFirst("id"));
 
-        List<SubjectGroupLecturedByDTO> ret = subjectGroupDAO.getSubjectGroupByLecturer().stream().filter(sg -> sg.getLecturer_id() == lecturer_id).map(SubjectGroupLecturedByDTO::new).collect(Collectors.toList());
+        List<SubjectGroupLecturedByDTO> ret = subjectGroupDAO.getSubjectGroupByLecturer().stream().filter(sg -> sg.getLecturer_id() == lecturer_id).map(ent -> new SubjectGroupLecturedByDTO(ent)).collect(Collectors.toList());
         return Response.status(200).entity(ret).build();
     }
 
