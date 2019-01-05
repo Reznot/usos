@@ -18,7 +18,7 @@ public class SubjectDAO {
     private Set<SubjectEntity> subjectSet = new HashSet<>();
 
     public Optional<SubjectEntity> getSubjectById(long id){
-        return Optional.of(em.find(SubjectEntity.class, id));
+        return Optional.of(em.find(SubjectEntity.class, id)); //Tylko po PK?
     }
 
     public List<SubjectEntity> getAll(){

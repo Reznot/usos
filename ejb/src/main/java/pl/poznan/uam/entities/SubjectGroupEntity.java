@@ -15,7 +15,7 @@ public class SubjectGroupEntity extends AbstractEntity{
     private int numberOfStudents;
     private int availablePlaces;
     private String groupShortcut;
-    private String heldDate;
+    private String heldDate;   //TODO wpisuj np "Tueasday, 7PM"
     //TODO zrobic z tego enuma
     private String classType;
 
@@ -39,7 +39,7 @@ public class SubjectGroupEntity extends AbstractEntity{
         return lecturer.getId();
     }
 
-    public long getSubject_id(){
+    public long getSubject_id(){ //////wazne w kit
         return subject.getId();
     }
 
