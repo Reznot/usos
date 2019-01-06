@@ -57,8 +57,9 @@ public class DatabaseInit {
         SubjectEntity subject = new SubjectEntity();
         subject.setSubjectName("Wstęp do Rachunku Prawdopodobieństwa");
         subject.setSemester("lato");
-        subject.setSubjectCode("WRP");
+        subject.setSubjectCode("WRP17");
         subject.setYear(2017);
+        subject.setEtcs(5);
 
         SubjectGroupEntity subjectGroup = new SubjectGroupEntity();
         subjectGroup.setSubject(subject);
@@ -72,7 +73,7 @@ public class DatabaseInit {
         subjectGroup.setNumberOfStudents(studentList.size());
         subjectGroup.setLecturer(person2);
         //todo lepiej ta date wpisz
-        subjectGroup.setHeldDate(Date.valueOf("2014-02-10"));
+        subjectGroup.setHeldDate("2014-02-10");
 
         GradeEntity grade = new GradeEntity();
         grade.setGrade(5);
