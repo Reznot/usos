@@ -1,12 +1,11 @@
 package pl.poznan.uam.Controllers;
 
+import pl.poznan.uam.DAO.PersonDAO;
 import pl.poznan.uam.DAO.SubjectDAO;
 import pl.poznan.uam.DAO.SubjectGroupDAO;
-import pl.poznan.uam.DTOs.SubjectDTO;
-import pl.poznan.uam.DTOs.SubjectGroupDTO;
-import pl.poznan.uam.DTOs.SubjectGroupLecturedByDTO;
-import pl.poznan.uam.DTOs.SubjectGroupShortDTO;
+import pl.poznan.uam.DTOs.*;
 import pl.poznan.uam.Utils.SubjectGroupToEntity;
+import pl.poznan.uam.entities.PersonEntity;
 import pl.poznan.uam.entities.SubjectEntity;
 import pl.poznan.uam.entities.SubjectGroupEntity;
 
@@ -17,8 +16,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Path("groups")
 public class SubjectGroupController {
@@ -27,14 +29,17 @@ public class SubjectGroupController {
     private SubjectGroupDAO subjectGroupDAO;
 
     @EJB
-    private SubjectDAO subjectDAO;  //to sie moze wyjebac, be careful
+    private SubjectDAO subjectDAO;
+
+    @EJB
+    private PersonDAO personDAO;
 
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
         List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().map(SubjectGroupShortDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(ret).build();
-    }
+    }//TODO zwracac pelne DTO?
 
     @GET
     @Path("groupshortcut")
@@ -66,6 +71,26 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
+    /**
+     * return group By id
+     * @param info
+     * @return
+     */
+    @GET
+    @Path("groupsById")
+    @Produces("application/json; charset=UTF-8")
+    public Response getById(@Context UriInfo info){
+        long group_id = Long.valueOf(info.getQueryParameters().getFirst("id"));
+
+        //SubjectGroupEntity subjectGroup = subjectGroupDAO.getAll().stream().filter(sg -> sg.getId() == group_id).findAny().get();
+
+        List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().filter(sg -> sg.getId() == group_id).map(SubjectGroupShortDTO::new).collect(Collectors.toList());
+
+//        Set<PersonEntity>  studentSet = subjectGroup.getStudents();
+//        List<StudentDTO> ret = studentSet.stream().map(StudentDTO::new).collect(Collectors.toList());
+        return Response.status(200).entity(ret).build();
+    }
+
     @GET
     @Path("groupsBySubjectCode")
     @Produces("application/json; charset=UTF-8")
@@ -75,6 +100,31 @@ public class SubjectGroupController {
         SubjectEntity subject = subjectDAO.getAll().stream().filter(s -> s.getSubjectCode().equals(code)).findFirst().get();
 
         List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().filter(sg -> sg.getSubject_id() == subject.getId()).map(SubjectGroupShortDTO::new).collect(Collectors.toList());
+        return Response.status(200).entity(ret).build();
+    }
+
+
+    @GET
+    @Path("groupsBySubjectName")
+    @Produces("application/json; charset=UTF-8")
+    public Response getBySubjectName(@Context UriInfo info){
+        String name = info.getQueryParameters().getFirst("name");
+
+        SubjectEntity subject = subjectDAO.getAll().stream().filter(s -> s.getSubjectName().equals(name)).findFirst().get();
+
+        List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().filter(sg -> sg.getSubject_id() == subject.getId()).map(SubjectGroupShortDTO::new).collect(Collectors.toList());
+        return Response.status(200).entity(ret).build();
+    }
+
+    @GET
+    @Path("groupStudents")
+    @Produces("application/json; charset=UTF-8")
+    public Response groupStudents(@Context UriInfo info){
+        long group_id = Long.valueOf(info.getQueryParameters().getFirst("id"));
+        SubjectGroupEntity subjectGroup = subjectGroupDAO.getGroupsStudents().stream().filter(sg -> sg.getId() == group_id).findAny().get();
+
+        Set<PersonEntity>  studentSet = subjectGroup.getStudents();
+        List<StudentDTO> ret = studentSet.stream().map(StudentDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(ret).build();
     }
 

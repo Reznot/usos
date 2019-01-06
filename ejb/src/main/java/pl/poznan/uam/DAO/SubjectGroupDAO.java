@@ -23,13 +23,17 @@ public class SubjectGroupDAO {
         return em.createQuery("SELECT sg FROM SubjectGroupEntity sg", SubjectGroupEntity.class).getResultList();
     }
 
+    public List<SubjectGroupEntity> getGroupsStudents(){
+        return em.createQuery("SELECT sg from SubjectGroupEntity sg join fetch sg.students", SubjectGroupEntity.class).getResultList();
+    }
+
     public SubjectGroupEntity addSubjectGroup(SubjectGroupEntity subjectGroup){
         em.persist(subjectGroup);
         return subjectGroup;
     }
 
     public List<SubjectGroupEntity> getSubjectGroupByLecturer(){
-        //TypedQuery<SubjectGroupEntity> q =
+        //TypedQuery<SubjectGroupEntity> q =   TODO sprobuj potem to ograc z typed query (ale do czego to przechwycic???)
         return em.createQuery("SELECT sg FROM SubjectGroupEntity sg join fetch sg.lecturer", SubjectGroupEntity.class).getResultList();
     }
 

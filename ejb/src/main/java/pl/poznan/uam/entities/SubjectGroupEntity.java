@@ -35,6 +35,10 @@ public class SubjectGroupEntity extends AbstractEntity{
         super(Id);
     }
 
+    public Set<PersonEntity> getStudents(){
+        return students;
+    }
+
     public long getLecturer_id(){
         return lecturer.getId();
     }
