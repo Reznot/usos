@@ -11,12 +11,14 @@ import pl.poznan.uam.entities.PersonEntity;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("people")
+@Path("person")
 public class PersonController {
 
     @EJB
@@ -25,27 +27,30 @@ public class PersonController {
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
-        List<PersonDTO> ret = personDAO.getAll().stream().map(PersonDTO::new).collect(Collectors.toList());
-        return Response.status(200).entity(ret).build();
+        List<PersonShortDTO> personList = personDAO.getAll().stream().map(PersonShortDTO::new).collect(Collectors.toList());
+        return Response.status(200).entity(personList).build();
     }
 
-    @POST
-    @Path("addStudent")
-    @Consumes("application/json; charset=UTF-8")
+    @GET
+    @Path("{id}")
     @Produces("application/json; charset=UTF-8")
-    public Response addStudent(StudentDTO studentDTO) {
-        PersonEntity personEnt = personDAO.addPerson(PersonToEntity.studentToEntity(studentDTO));
-        StudentDTO finalStudentDTO = new StudentDTO(personEnt);
-        return Response.status(201).entity(finalStudentDTO).build();
+    public Response getById(@PathParam("id") long id) {
+        PersonShortDTO person = new PersonShortDTO(personDAO.getPersonById(id).get());
+        return Response.status(200).entity(person).build();
     }
 
-    @POST
-    @Path("addEmployee")
-    @Consumes("application/json; charset=UTF-8")
+    @GET
+    @Path("search")
     @Produces("application/json; charset=UTF-8")
-    public Response addEmployee(EmployeeDTO employeeDTO) {
-        PersonEntity personEnt = personDAO.addPerson(PersonToEntity.employeeToEntity(employeeDTO));
-        EmployeeDTO finalEmployeeDTO = new EmployeeDTO(personEnt);
-        return Response.status(201).entity(finalEmployeeDTO).build();
+    public Response findPersonByName(@Context UriInfo info) {
+        String name = info.getQueryParameters().getFirst("name");
+        String surname = info.getQueryParameters().getFirst("surname");
+        List<PersonShortDTO> personList = personDAO.getAll().stream().filter(personEnt -> personEnt.getNameAndSurname().equals(name+" "+surname)).map(PersonShortDTO::new).collect(Collectors.toList());
+
+        return Response.status(200).entity(personList).build();
     }
+
+
+
+
 }
