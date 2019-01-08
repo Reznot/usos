@@ -28,7 +28,7 @@ public class SubjectGroupEntity extends AbstractEntity{
     @ManyToOne
     private SubjectEntity subject;
 
-    @OneToMany(mappedBy = "gradeFromSubject")
+    @OneToMany(mappedBy = "gradeFromSubjectGroup")
     private Set<GradeEntity> grades;
 
     public SubjectGroupEntity(long Id){

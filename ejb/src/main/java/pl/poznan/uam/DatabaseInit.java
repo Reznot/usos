@@ -77,10 +77,15 @@ public class DatabaseInit {
 
         GradeEntity grade = new GradeEntity();
         grade.setGrade(5);
-        grade.setGradeFromSubject(subjectGroup);
-        grade.setSubject1(subject);
+        grade.setGradeFromSubjectGroup(subjectGroup);
+        grade.setGradeFromSubject(subject);
         grade.setPerson(person1);
 
+        GradeEntity grade2 = new GradeEntity();
+        grade2.setGrade(3);
+        grade2.setGradeFromSubjectGroup(subjectGroup);
+        grade2.setGradeFromSubject(subject);
+        grade2.setPerson(person3);
 
         em.persist(person1);
         em.persist(person2);
@@ -88,6 +93,6 @@ public class DatabaseInit {
         em.persist(subject);
         em.persist(subjectGroup);
         em.persist(grade);
-
+        em.persist(grade2);
     }
 }
