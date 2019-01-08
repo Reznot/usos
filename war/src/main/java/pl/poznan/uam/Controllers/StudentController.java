@@ -21,7 +21,7 @@ public class StudentController {
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
-        List<StudentDTO> studentList = personDAO.getAllByPosition().stream().map(StudentDTO::new).collect(Collectors.toList());
+        List<StudentDTO> studentList = personDAO.getAllByPosition("student").stream().map(StudentDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(studentList).build();
     }
 

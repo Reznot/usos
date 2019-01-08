@@ -23,7 +23,7 @@ public class EmployeeController {
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getAll() {
-        List<EmployeeDTO> employeeList = personDAO.getAll().stream().map(EmployeeDTO::new).collect(Collectors.toList());
+        List<EmployeeDTO> employeeList = personDAO.getPeopleWhoAreNotStudents().stream().map(EmployeeDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(employeeList).build();
     }
 
