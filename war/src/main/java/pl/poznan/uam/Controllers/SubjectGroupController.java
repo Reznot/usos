@@ -121,7 +121,7 @@ public class SubjectGroupController {
     @Produces("application/json; charset=UTF-8")
     public Response groupStudents(@Context UriInfo info){
         long group_id = Long.valueOf(info.getQueryParameters().getFirst("id"));
-        SubjectGroupEntity subjectGroup = subjectGroupDAO.getGroupsStudents().stream().filter(sg -> sg.getId() == group_id).findAny().get();
+        SubjectGroupEntity subjectGroup = subjectGroupDAO.getGroupsStudents().stream().filter(sg -> sg.getId().equals(group_id)).findAny().get();
 
         Set<PersonEntity>  studentSet = subjectGroup.getStudents();
         List<StudentDTO> ret = studentSet.stream().map(StudentDTO::new).collect(Collectors.toList());
