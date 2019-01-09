@@ -21,6 +21,14 @@ public class PersonDAO {
         return em.createQuery("select p from PersonEntity p", PersonEntity.class).getResultList();
     }
 
+    public List<PersonEntity> getAllByPosition(String recievedPosition){
+        return em.createQuery("select p from PersonEntity p where position=:pos",PersonEntity.class).setParameter("pos", recievedPosition).getResultList();
+    }
+
+    public List<PersonEntity> getPeopleWhoAreNotStudents(){
+        return em.createQuery("select p from PersonEntity p where position!='student'",PersonEntity.class).getResultList();
+    }
+
     public PersonEntity addPerson(PersonEntity person){
         em.persist(person);
         return person;

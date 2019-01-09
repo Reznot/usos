@@ -14,10 +14,10 @@ public class GradeEntity extends AbstractEntity {
     private PersonEntity person;
 
     @ManyToOne
-    private SubjectGroupEntity gradeFromSubject;
+    private SubjectGroupEntity gradeFromSubjectGroup;
 
     @ManyToOne
-    private SubjectEntity subject1;
+    private SubjectEntity gradeFromSubject;
 
     private int grade;
 

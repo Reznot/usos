@@ -63,4 +63,8 @@ public class PersonEntity extends AbstractEntity{
         grades.add(person.returnGrade());
     }
 
+    public String getNameAndSurname(){
+        return getName()+" "+getSurname();
+    }
+
 }

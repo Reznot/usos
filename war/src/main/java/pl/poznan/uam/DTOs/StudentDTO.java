@@ -14,6 +14,7 @@ public class StudentDTO implements Serializable {
     private String name;
     private String surname;
     private String email;
+    private String position;
     private int statusStance;
 
     public StudentDTO(PersonEntity personEntity){
@@ -23,5 +24,6 @@ public class StudentDTO implements Serializable {
         surname=personEntity.getSurname();
         email=personEntity.getEmail();
         statusStance=1;
+        position="student";
     }
 }
