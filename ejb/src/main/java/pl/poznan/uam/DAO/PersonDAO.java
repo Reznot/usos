@@ -41,7 +41,7 @@ public class PersonDAO {
     }
 
     public void remove(long id) {
-        personSet.remove(new PersonEntity(id));
+        em.remove(em.contains(new PersonEntity((id))) ? new PersonEntity(id) : em.merge(new PersonEntity((id))));
     }
 
     public PersonEntity update(PersonEntity personEntity) {

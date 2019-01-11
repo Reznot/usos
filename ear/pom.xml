@@ -25,10 +25,10 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>2.0.0.Final</version>
                 <configuration>
-                    <hostname>127.0.0.1</hostname>
+                    <hostname>localhost</hostname>
                     <port>9990</port>
-                    <username>Reznot</username>
-                    <password></password>
+                    <username>admin</username>
+                    <password>admin</password>
                     <name>ear.ear</name>
                 </configuration>
                 <executions>
