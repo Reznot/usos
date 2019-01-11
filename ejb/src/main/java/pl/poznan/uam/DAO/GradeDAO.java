@@ -2,8 +2,10 @@ package pl.poznan.uam.DAO;
 
 import org.graalvm.compiler.lir.LIRInstruction;
 import pl.poznan.uam.QueriesMapping.GradesFromSubject;
+import pl.poznan.uam.QueriesMapping.SubjectGroupShort;
 import pl.poznan.uam.entities.GradeEntity;
 import pl.poznan.uam.entities.PersonEntity;
+import pl.poznan.uam.entities.SubjectGroupEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,6 +25,8 @@ public class GradeDAO {
     }
 
     public List<GradesFromSubject> getGradesFromSubjectGroup(String groupShortcut){
+//        List<GradesFromSubject> resultList = em.createQuery("select new GradesFromSubject(p.name, p.surname, g.grade) from GradeEntity g join g.person p join g.gradeFromSubjectGroup sg where sg.groupShortcut=:grShortcut", Object[].class)
+//                .setParameter("grShortcut", groupShortcut).getResultList();
         List<Object[]> resultList = em.createQuery("select p.name, p.surname, g.grade from GradeEntity g join g.person p join g.gradeFromSubjectGroup sg where sg.groupShortcut=:grShortcut", Object[].class)
                 .setParameter("grShortcut", groupShortcut).getResultList();
         List<GradesFromSubject> gradesfinal = new LinkedList<>();
@@ -32,6 +36,9 @@ public class GradeDAO {
         }
         return gradesfinal;
     }
+
+
+
 
 
 }
