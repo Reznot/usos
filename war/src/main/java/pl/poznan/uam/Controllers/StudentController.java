@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Path("student")
@@ -35,12 +36,20 @@ public class StudentController {
         return Response.status(201).entity(finalStudentDTO).build();
     }
 
-    //TODO Delete and Put
+    @PUT
+    @Path("{id}")
+    @Consumes("application/json; charset=UTF-8")
+    public Response updateStudent(StudentDTO studentDTO, @PathParam("id") long id){
+        if(!personDAO.getPersonById(id).isPresent()) return Response.status(404).build();
+        personDAO.update(PersonToEntity.studentToEntity(studentDTO), id);
+        return Response.status(200).build();
+    }
+
     @DELETE
     @Path("{id}")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public Response removeBook(@PathParam("id") long id) {
+    public Response removeStudent(@PathParam("id") long id) {
         personDAO.remove(id);
         return Response.status(204).build();
     }
