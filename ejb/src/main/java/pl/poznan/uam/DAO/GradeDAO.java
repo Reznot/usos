@@ -1,6 +1,5 @@
 package pl.poznan.uam.DAO;
 
-import org.graalvm.compiler.lir.LIRInstruction;
 import pl.poznan.uam.QueriesMapping.GradesFromSubject;
 import pl.poznan.uam.entities.GradeEntity;
 import pl.poznan.uam.entities.PersonEntity;
