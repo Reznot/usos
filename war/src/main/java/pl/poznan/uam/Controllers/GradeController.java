@@ -3,6 +3,7 @@ package pl.poznan.uam.Controllers;
 import pl.poznan.uam.DAO.GradeDAO;
 import pl.poznan.uam.DTOs.Grade;
 import pl.poznan.uam.DTOs.PersonShortDTO;
+import pl.poznan.uam.QueriesMapping.StudentWithSubjectAndGrades;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -11,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,14 @@ public class GradeController {
         String groupShortcut = info.getQueryParameters().getFirst("groupShortcut");
         List<Grade> gradesList = gradeDAO.getGradesFromSubjectGroup(groupShortcut).stream().map(Grade::new).collect(Collectors.toList());
         return Response.status(200).entity(gradesList).build();
+    }
+
+    @GET
+    @Path("studentsummary")
+    @Produces("application/json; charset=UTF-8")
+    public Response getStudentGrades(@Context UriInfo info) {
+        long studentId = Long.parseLong(info.getQueryParameters().getFirst("studentId"));
+        return Response.status(200).entity((gradeDAO.getStudentGradesFromAllSubjects(studentId))).build();
     }
 
 }
