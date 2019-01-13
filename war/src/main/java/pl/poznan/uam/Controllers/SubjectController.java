@@ -1,6 +1,5 @@
 package pl.poznan.uam.Controllers;
 
-import com.sun.jndi.toolkit.url.Uri;
 import pl.poznan.uam.DAO.SubjectDAO;
 import pl.poznan.uam.DTOs.SubjectDTO;
 import pl.poznan.uam.Utils.SubjectToEntity;

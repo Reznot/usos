@@ -36,4 +36,22 @@ public class EmployeeController {
         EmployeeDTO finalEmployeeDTO = new EmployeeDTO(personEnt);
         return Response.status(201).entity(finalEmployeeDTO).build();
     }
+
+    @PUT
+    @Path("{id}")
+    @Consumes("application/json; charset=UTF-8")
+    public Response updateEmployee(EmployeeDTO employeeDTO, @PathParam("id") long id){
+        if(!personDAO.getPersonById(id).isPresent()) return Response.status(404).build();
+        personDAO.update(PersonToEntity.employeeToEntity(employeeDTO), id);
+        return Response.status(200).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Response removeEmployee(@PathParam("id") long id) {
+        personDAO.remove(id);
+        return Response.status(204).build();
+    }
 }
