@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SubjectGroupShort {
     private int grade;
-    private String subjectName;
     private String subjectType;
-    private String lecturerNameAndSurname;
+    private String subjectName;
+
+    //    private String lecturerNameAndSurname;
 }
