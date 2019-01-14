@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -49,6 +50,10 @@ public class SubjectGroupEntity extends AbstractEntity{
 
     public void addSubject(SubjectEntity subject){
         this.subject = subject;
+    }
+
+    public void addStudents(PersonEntity person) {
+        this.students.add(person);
     }
 
     public PersonEntity returnStudents(){

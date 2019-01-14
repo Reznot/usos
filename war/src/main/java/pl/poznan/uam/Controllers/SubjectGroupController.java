@@ -1,12 +1,11 @@
 package pl.poznan.uam.Controllers;
 
+import pl.poznan.uam.DAO.PersonDAO;
 import pl.poznan.uam.DAO.SubjectDAO;
 import pl.poznan.uam.DAO.SubjectGroupDAO;
-import pl.poznan.uam.DTOs.SubjectDTO;
-import pl.poznan.uam.DTOs.SubjectGroupDTO;
-import pl.poznan.uam.DTOs.SubjectGroupLecturedByDTO;
-import pl.poznan.uam.DTOs.SubjectGroupShortDTO;
+import pl.poznan.uam.DTOs.*;
 import pl.poznan.uam.Utils.SubjectGroupToEntity;
+import pl.poznan.uam.entities.PersonEntity;
 import pl.poznan.uam.entities.SubjectEntity;
 import pl.poznan.uam.entities.SubjectGroupEntity;
 
@@ -27,6 +26,9 @@ public class SubjectGroupController {
     private SubjectGroupDAO subjectGroupDAO;
 
     @EJB
+    private PersonDAO personDAO;
+
+    @EJB
     private SubjectDAO subjectDAO;  //to sie moze wyjebac, be careful
 
     @GET
@@ -34,6 +36,14 @@ public class SubjectGroupController {
     public Response getAll() {
         List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().map(SubjectGroupShortDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(ret).build();
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces("application/json; charset=UTF-8")
+    public Response getById(@PathParam("id") long id) {
+        SubjectGroupDTO subjectGroupDTO = new SubjectGroupDTO(subjectGroupDAO.getSubjectGroupByID(id).get());
+        return Response.status(200).entity(subjectGroupDTO).build();
     }
 
     @GET
@@ -77,6 +87,19 @@ public class SubjectGroupController {
         List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().filter(sg -> sg.getSubject_id() == subject.getId()).map(SubjectGroupShortDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(ret).build();
     }
+
+    @PUT
+    @Path("addstudent")
+    @Consumes("application/json; charset=UTF-8")
+    public Response addStudentToGroup(@Context UriInfo info){
+        long groupId = Long.parseLong(info.getQueryParameters().getFirst("groupId"));
+        long studentId = Long.parseLong(info.getQueryParameters().getFirst("studentId"));
+        if(!(personDAO.getPersonById(studentId).isPresent())) return Response.status(404).build();
+        if(!(subjectGroupDAO.getSubjectGroupByID(groupId).isPresent())) return Response.status(404).build();
+        subjectGroupDAO.addStudentToSubjectGroup(subjectGroupDAO.getSubjectGroupByID(groupId).get(), personDAO.getPersonById(studentId).get());
+        return Response.status(200).build();
+    }
+
 
     @POST
     @Path("addSubjectGroup")
