@@ -5,7 +5,6 @@ import pl.poznan.uam.entities.PersonEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.Response;
 import java.util.*;
 
 @Stateless

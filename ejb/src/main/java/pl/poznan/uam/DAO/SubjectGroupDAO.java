@@ -1,5 +1,6 @@
 package pl.poznan.uam.DAO;
 
+import pl.poznan.uam.entities.PersonEntity;
 import pl.poznan.uam.entities.SubjectGroupEntity;
 
 import javax.ejb.Stateless;
@@ -28,12 +29,19 @@ public class SubjectGroupDAO {
         return subjectGroup;
     }
 
+    public SubjectGroupEntity addStudentToSubjectGroup(SubjectGroupEntity subjectGroup, PersonEntity person){
+        subjectGroup.addStudents(person);
+        em.merge(subjectGroup);
+        return subjectGroup;
+    }
+
     public List<SubjectGroupEntity> getSubjectGroupByLecturer(){
         //TypedQuery<SubjectGroupEntity> q =
         return em.createQuery("SELECT sg FROM SubjectGroupEntity sg join fetch sg.lecturer", SubjectGroupEntity.class).getResultList();
     }
 
     //TODO remove
+    //TODO PUT
 
     public SubjectGroupEntity editSubjectGroup(SubjectGroupEntity subjectGroup){
         SubjectGroupEntity fromDB = subjectGroupSet.stream().filter(s -> s.getId() == subjectGroup.getId()).findFirst().get();
