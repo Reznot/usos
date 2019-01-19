@@ -24,7 +24,6 @@ public class SubjectEntity extends AbstractEntity{
     private int etcs;
     @OneToMany(mappedBy = "subject")
     private Set<SubjectGroupEntity> subjectGroup;
-    //TODO: czy 2 te same subjecty nie beda sie gryzc ze soba?
     @OneToMany(mappedBy = "gradeFromSubject")
     private Set<GradeEntity> grades;
 

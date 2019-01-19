@@ -6,7 +6,6 @@ import pl.poznan.uam.entities.SubjectGroupEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.*;
 
 @Stateless
@@ -18,6 +17,7 @@ public class SubjectGroupDAO {
 
     public Optional<SubjectGroupEntity> getSubjectGroupByID(long id){
         return Optional.of(em.find(SubjectGroupEntity.class, id));
+       // return (SubjectGroupEntity) em.createQuery("SELECT sg from SubjectGroupEntity sg join fetch sg.students WHERE sg.id =:id").setParameter("id", id).getSingleResult();
     }
 
     public List<SubjectGroupEntity> getAll(){
@@ -40,12 +40,10 @@ public class SubjectGroupDAO {
     }
 
     public List<SubjectGroupEntity> getSubjectGroupByLecturer(){
-        //TypedQuery<SubjectGroupEntity> q =   TODO sprobuj potem to ograc z typed query (ale do czego to przechwycic???)
+        //TypedQuery<SubjectGroupEntity> q =
         return em.createQuery("SELECT sg FROM SubjectGroupEntity sg join fetch sg.lecturer", SubjectGroupEntity.class).getResultList();
     }
 
-    //TODO remove
-    //TODO PUT
 
     public SubjectGroupEntity editSubjectGroup(SubjectGroupEntity subjectGroup){
         SubjectGroupEntity fromDB = subjectGroupSet.stream().filter(s -> s.getId() == subjectGroup.getId()).findFirst().get();
@@ -61,6 +59,13 @@ public class SubjectGroupDAO {
 
     public void remove(long id){
         em.remove(em.contains(new SubjectGroupEntity(id)) ? new SubjectGroupEntity(id) : em.merge(new SubjectGroupEntity(id)));
+    }
+
+    public void addStudentToGroup(SubjectGroupEntity subjectGroupEntity, PersonEntity personEntity){
+        subjectGroupEntity.addStudents(personEntity);
+        personEntity.addSubjectGroup(subjectGroupEntity);
+        em.merge(subjectGroupEntity);
+        em.merge(personEntity);
     }
 
 }

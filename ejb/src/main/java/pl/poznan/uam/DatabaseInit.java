@@ -87,7 +87,6 @@ public class DatabaseInit {
         subjectGroup.setStudents(studentList);
         subjectGroup.setNumberOfStudents(studentList.size());
         subjectGroup.setLecturer(person2);
-        //todo lepiej ta date wpisz
         subjectGroup.setHeldDate("2014-02-10");
 
         SubjectGroupEntity subjectGroup2 = new SubjectGroupEntity();
@@ -99,7 +98,6 @@ public class DatabaseInit {
         subjectGroup2.setStudents(studentList);
         subjectGroup2.setNumberOfStudents(studentList.size());
         subjectGroup2.setLecturer(person4);
-        //todo lepiej ta date wpisz
         subjectGroup2.setHeldDate("2015-02-10");
 
         GradeEntity grade = new GradeEntity();
