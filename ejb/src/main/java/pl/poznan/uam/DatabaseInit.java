@@ -83,7 +83,7 @@ public class DatabaseInit {
         subjectGroup.setGroupShortcut("1CA");
         Set<PersonEntity> studentList = new HashSet<>();
         studentList.add(person1);
-        studentList.add(person3);
+
         subjectGroup.setStudents(studentList);
         subjectGroup.setNumberOfStudents(studentList.size());
         subjectGroup.setLecturer(person2);
@@ -106,12 +106,6 @@ public class DatabaseInit {
         grade.setGradeFromSubject(subject);
         grade.setPerson(person1);
 
-        GradeEntity grade2 = new GradeEntity();
-        grade2.setGrade(3);
-        grade2.setGradeFromSubjectGroup(subjectGroup);
-        grade2.setGradeFromSubject(subject);
-        grade2.setPerson(person3);
-
         GradeEntity grade3 = new GradeEntity();
         grade3.setGrade(4);
         grade3.setGradeFromSubjectGroup(subjectGroup2);
@@ -127,7 +121,6 @@ public class DatabaseInit {
         em.persist(subjectGroup2);
         em.persist(subjectGroup);
         em.persist(grade);
-        em.persist(grade2);
         em.persist(grade3);
     }
 }

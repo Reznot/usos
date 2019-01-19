@@ -34,20 +34,6 @@ public class SubjectGroupDAO {
         return subjectGroup;
     }
 
-    public SubjectGroupEntity addStudentToSubjectGroup(SubjectGroupEntity subjectGroup, PersonEntity person){
-        subjectGroup.addStudents(person);
-        em.merge(subjectGroup);
-        return subjectGroup;
-    }
-
-    //round2
-    public SubjectGroupEntity addStudentToSubjectGroup2(SubjectGroupEntity subjectGroup, PersonEntity person){
-        studentsInGroup.add(person);
-        subjectGroup.setStudents(studentsInGroup);
-        em.merge(subjectGroup);
-        return subjectGroup;
-    }
-
     public List<SubjectGroupEntity> getSubjectGroupByLecturer(){
         //TypedQuery<SubjectGroupEntity> q =
         return em.createQuery("SELECT sg FROM SubjectGroupEntity sg join fetch sg.lecturer", SubjectGroupEntity.class).getResultList();
@@ -77,5 +63,18 @@ public class SubjectGroupDAO {
         em.merge(personEntity);
     }
 
+    public SubjectGroupEntity addStudentToSubjectGroup(SubjectGroupEntity subjectGroup, PersonEntity person){
+        subjectGroup.addStudents(person);
+        em.merge(subjectGroup);
+        return subjectGroup;
+    }
+
+    //round2
+    public SubjectGroupEntity addStudentToSubjectGroup2(SubjectGroupEntity subjectGroup, PersonEntity person){
+        studentsInGroup.add(person);
+        subjectGroup.setStudents(studentsInGroup);
+        em.merge(subjectGroup);
+        return subjectGroup;
+    }
 
 }
