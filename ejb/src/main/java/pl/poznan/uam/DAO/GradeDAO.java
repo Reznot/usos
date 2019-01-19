@@ -33,19 +33,24 @@ public class GradeDAO {
 
 
         List<SubjectWithGrade> subjectsAndGrades = new LinkedList<>();
-        StudentWithSubjectAndGrades studentWithSubjectAndGrades = new StudentWithSubjectAndGrades(resultList.get(0)[0].toString(), resultList.get(0)[1].toString(), resultList.get(0)[2].toString(), subjectsAndGrades);
+
         for(Object[] object : resultList){
             SubjectWithGrade subjectData = new SubjectWithGrade((int) object[3], object[4].toString(), object[5].toString());
             subjectsAndGrades.add(subjectData);
         }
 
+        StudentWithSubjectAndGrades studentWithSubjectAndGrades = new StudentWithSubjectAndGrades(resultList.get(0)[0].toString(),
+                resultList.get(0)[1].toString(), resultList.get(0)[2].toString(), subjectsAndGrades);
+
         return studentWithSubjectAndGrades;
     }
 
     public List<GradesFromSubject> getGradesFromSubjectGroup(String groupShortcut){
-//        List<GradesFromSubject> resultList = em.createQuery("select new GradesFromSubject(p.name, p.surname, g.grade) from GradeEntity g join g.person p join g.gradeFromSubjectGroup sg where sg.groupShortcut=:grShortcut", Object[].class)
+//        List<GradesFromSubject> resultList = em.createQuery("select new GradesFromSubject(p.name, p.surname, g.grade) from GradeEntity g
+//        join g.person p join g.gradeFromSubjectGroup sg where sg.groupShortcut=:grShortcut", Object[].class)
 //                .setParameter("grShortcut", groupShortcut).getResultList();
-        List<Object[]> resultList = em.createQuery("select p.name, p.surname, g.grade from GradeEntity g join g.person p join g.gradeFromSubjectGroup sg where sg.groupShortcut=:grShortcut", Object[].class)
+        List<Object[]> resultList = em.createQuery("select p.name, p.surname, g.grade from GradeEntity g " +
+                "join g.person p join g.gradeFromSubjectGroup sg where sg.groupShortcut=:grShortcut", Object[].class)
                 .setParameter("grShortcut", groupShortcut).getResultList();
         List<GradesFromSubject> gradesfinal = new LinkedList<>();
         for(Object[] object : resultList){
