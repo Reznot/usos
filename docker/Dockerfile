@@ -1,4 +1,4 @@
-FROM jboss/wildfly:15.0.1.Final
+FROM jboss/wildfly:14.0.1.Final
 USER root
 RUN chown -R jboss:0 ${JBOSS_HOME}
 RUN chmod -R g+rw ${JBOSS_HOME}

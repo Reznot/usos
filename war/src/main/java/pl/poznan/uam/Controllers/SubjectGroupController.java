@@ -138,4 +138,24 @@ public class SubjectGroupController {
         return Response.status(201).entity(finalSubjectGroupDTO).build();
     }
     //TODO metody do wyciagania po przedmiocie, prowadzcym itd w DAO, nowe dtos, zmapowanie encji subjectGroup_Person
+
+    @PUT
+    @Path("{id}")
+    @Consumes("application/json; charset=UTF-8")
+    public Response updateSubjectGroup(SubjectGroupDTO subjectGroupDTO, @PathParam("id") long id){
+        if(!subjectGroupDAO.getSubjectGroupByID(id).isPresent())
+            return Response.status(404).build();
+        subjectGroupDAO.update(SubjectGroupToEntity.subjectGroupToEntity(subjectGroupDTO), id);
+        return Response.status(200).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Response removeSubjectGroup(@PathParam("id") long id){
+        subjectGroupDAO.remove(id);
+        return Response.status(204).build();
+    }
 }
+

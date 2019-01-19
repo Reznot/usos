@@ -31,7 +31,7 @@ public class SubjectDAO {
     }
 
     public void remove(long id){
-        subjectSet.remove(new SubjectEntity(id));
+        em.remove(em.contains(new SubjectEntity(id)) ? new SubjectEntity(id) : em.merge(new SubjectEntity(id)));
     }
 
     public SubjectEntity editSubject(SubjectEntity subject){
@@ -39,11 +39,10 @@ public class SubjectDAO {
         return subjectFromDB;
     }
 
-    public SubjectEntity update(SubjectEntity subjectEntity){
-        SubjectEntity subjectFromDB = getSubjectById(subjectEntity.getId()).get();
-        subjectFromDB.update(subjectEntity);
-        SubjectEntity ret = em.merge(subjectEntity);
-        return ret;
+    public SubjectEntity update(SubjectEntity subjectEntity, long id){
+        subjectEntity.setId(id);
+        em.merge(subjectEntity);
+        return subjectEntity;
     }
 
 }

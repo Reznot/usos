@@ -53,10 +53,14 @@ public class SubjectGroupDAO {
         return fromDB;
     }
 
-    public SubjectGroupEntity update(SubjectGroupEntity subjectGroup){
-        Optional<SubjectGroupEntity> subjectGroupFromDB = subjectGroupSet.stream().filter(sg -> sg.getId().equals(subjectGroup.getId())).findFirst();
-        subjectGroupFromDB.ifPresent(db -> db.update(subjectGroup));
-        return  subjectGroupFromDB.get();
+    public SubjectGroupEntity update(SubjectGroupEntity subjectGroup, long id){
+        subjectGroup.setId(id);
+        em.merge(subjectGroup);
+        return subjectGroup;
+    }
+
+    public void remove(long id){
+        em.remove(em.contains(new SubjectGroupEntity(id)) ? new SubjectGroupEntity(id) : em.merge(new SubjectGroupEntity(id)));
     }
 
 }

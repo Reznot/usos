@@ -13,7 +13,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectGroupDTO implements Serializable {
-    private long id;
+    //private long id;
     private int numberOfStudents;
     private int availablePlaces;
     private String groupShortcut;
@@ -30,7 +30,7 @@ public class SubjectGroupDTO implements Serializable {
         classType = subjectGroup.getClassType();
         lecturer_id = subjectGroup.getLecturer_id();
         subject_id = subjectGroup.getSubject_id();
-        id = subjectGroup.getId();
+        //id = subjectGroup.getId();
     }
 
     public long getLecturer_id(){
@@ -41,7 +41,7 @@ public class SubjectGroupDTO implements Serializable {
         return subject_id;
     }
 
-    public long getId(){
-        return id;
-    }
+//    public long getId(){
+//        return id;
+//    }
 }

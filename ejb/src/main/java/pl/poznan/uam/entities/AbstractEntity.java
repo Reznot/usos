@@ -26,6 +26,7 @@ public abstract class AbstractEntity {
     }
 
     @PrePersist
+    @PreUpdate
     public void init() {
         if (uuid == null) {
             uuid = UUID.randomUUID().toString();

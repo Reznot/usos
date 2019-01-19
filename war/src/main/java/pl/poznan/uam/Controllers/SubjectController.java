@@ -81,21 +81,22 @@ public class SubjectController {
         return Response.status(201).entity(finalSubjectDTO).build();
     }
 
+    @PUT
+    @Path("{id}")
+    @Produces("application/json; charset=UTF-8")
+    public Response editSubject(SubjectDTO subject, @PathParam("id") long id){
+        if(!subjectDAO.getSubjectById(id).isPresent())
+            return Response.status(404).build();
+        subjectDAO.update(SubjectToEntity.subjectToEntity(subject), id);
+        return Response.status(200).build();
+    }
+
     @DELETE
-    @Path("delete/{id}")
+    @Path("{id}")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
     public Response removeSubject(@PathParam("id") long id){
         subjectDAO.remove(id);
         return Response.status(204).build();
     }
-    //TODO nie usuwa z bazy
-
-    @PUT
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    public Response editSubject(SubjectDTO subject){
-        subjectDAO.update(SubjectToEntity.subjectToEntity(subject));
-        return Response.status(200).entity(subject).build();
-    }//TODO cos sie wypierdala; dopracuj
 }
