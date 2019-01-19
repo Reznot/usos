@@ -14,6 +14,7 @@ public class SubjectGroupDAO {
     @PersistenceContext(unitName = "primary")//nie wiem czy tak powinno byc
     protected EntityManager em;
     private Set<SubjectGroupEntity> subjectGroupSet = new HashSet<>();
+    private final Set<PersonEntity> studentsInGroup = new HashSet<>();
 
     public Optional<SubjectGroupEntity> getSubjectGroupByID(long id){
         return Optional.of(em.find(SubjectGroupEntity.class, id));
@@ -35,6 +36,14 @@ public class SubjectGroupDAO {
 
     public SubjectGroupEntity addStudentToSubjectGroup(SubjectGroupEntity subjectGroup, PersonEntity person){
         subjectGroup.addStudents(person);
+        em.merge(subjectGroup);
+        return subjectGroup;
+    }
+
+    //round2
+    public SubjectGroupEntity addStudentToSubjectGroup2(SubjectGroupEntity subjectGroup, PersonEntity person){
+        studentsInGroup.add(person);
+        subjectGroup.setStudents(studentsInGroup);
         em.merge(subjectGroup);
         return subjectGroup;
     }
@@ -67,5 +76,6 @@ public class SubjectGroupDAO {
         em.merge(subjectGroupEntity);
         em.merge(personEntity);
     }
+
 
 }

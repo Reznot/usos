@@ -53,8 +53,8 @@ public class PDFFromJson {
             document.add(new Paragraph("\n"));
         }
 
-        File file = new File(fileName);
         document.close();
+        File file = new File(fileName);
         s3Client.putObject(new PutObjectRequest(appProps.getProperty("bucketName"), fileName, file).withCannedAcl(CannedAccessControlList.PublicRead));
 
         String returnUrl = appProps.getProperty("endpointUrl") + "/" + appProps.getProperty("bucketName") + "/" + fileName;

@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,7 +40,15 @@ public class SubjectGroupController {
     public Response getAll() {
         List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().map(SubjectGroupShortDTO::new).collect(Collectors.toList());
         return Response.status(200).entity(ret).build();
-    }//TODO zwracac pelne DTO?
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces("application/json; charset=UTF-8")
+    public Response getById(@PathParam("id") long id) {
+        SubjectGroupDTO subjectGroupDTO = new SubjectGroupDTO(subjectGroupDAO.getSubjectGroupByID(id).get());
+        return Response.status(200).entity(subjectGroupDTO).build();
+    }
 
     @GET
     @Path("groupshortcut")
@@ -71,26 +80,6 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
-    /**
-     * return group By id
-     * @param info
-     * @return
-     */
-    @GET
-    @Path("groupsById")
-    @Produces("application/json; charset=UTF-8")
-    public Response getById(@Context UriInfo info){
-        long group_id = Long.valueOf(info.getQueryParameters().getFirst("id"));
-
-        //SubjectGroupEntity subjectGroup = subjectGroupDAO.getAll().stream().filter(sg -> sg.getId() == group_id).findAny().get();
-
-        List<SubjectGroupShortDTO> ret = subjectGroupDAO.getAll().stream().filter(sg -> sg.getId() == group_id).map(SubjectGroupShortDTO::new).collect(Collectors.toList());
-
-//        Set<PersonEntity>  studentSet = subjectGroup.getStudents();
-//        List<StudentDTO> ret = studentSet.stream().map(StudentDTO::new).collect(Collectors.toList());
-        return Response.status(200).entity(ret).build();
-    }
-
     @GET
     @Path("groupsBySubjectCode")
     @Produces("application/json; charset=UTF-8")
@@ -103,6 +92,17 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
+    @PUT
+    @Path("addstudent")
+    @Consumes("application/json; charset=UTF-8")
+    public Response addStudentToGroup(@Context UriInfo info){
+        long groupId = Long.parseLong(info.getQueryParameters().getFirst("groupId"));
+        long studentId = Long.parseLong(info.getQueryParameters().getFirst("studentId"));
+        if(!(personDAO.getPersonById(studentId).isPresent())) return Response.status(404).build();
+        if(!(subjectGroupDAO.getSubjectGroupByID(groupId).isPresent())) return Response.status(404).build();
+        subjectGroupDAO.addStudentToSubjectGroup(subjectGroupDAO.getSubjectGroupByID(groupId).get(), personDAO.getPersonById(studentId).get());
+        return Response.status(200).build();
+    }
 
     @GET
     @Path("groupsBySubjectName")
@@ -116,16 +116,17 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
-    @GET
-    @Path("groupStudents")
-    @Produces("application/json; charset=UTF-8")
-    public Response groupStudents(@Context UriInfo info){
-        long group_id = Long.valueOf(info.getQueryParameters().getFirst("id"));
-        SubjectGroupEntity subjectGroup = subjectGroupDAO.getGroupsStudents().stream().filter(sg -> sg.getId().equals(group_id)).findAny().get();
-
-        Set<PersonEntity>  studentSet = subjectGroup.getStudents();
-        List<StudentDTO> ret = studentSet.stream().map(StudentDTO::new).collect(Collectors.toList());
-        return Response.status(200).entity(ret).build();
+    //round 2
+    @PUT
+    @Path("addstudent2")
+    @Consumes("application/json; charset=UTF-8")
+    public Response addStudentToGroup2(@Context UriInfo info){
+        long groupId = Long.parseLong(info.getQueryParameters().getFirst("groupId"));
+        long studentId = Long.parseLong(info.getQueryParameters().getFirst("studentId"));
+        if(!(personDAO.getPersonById(studentId).isPresent())) return Response.status(404).build();
+        if(!(subjectGroupDAO.getSubjectGroupByID(groupId).isPresent())) return Response.status(404).build();
+        subjectGroupDAO.addStudentToSubjectGroup2(subjectGroupDAO.getSubjectGroupByID(groupId).get(), personDAO.getPersonById(studentId).get());
+        return Response.status(200).build();
     }
 
     @POST
@@ -158,4 +159,3 @@ public class SubjectGroupController {
         return Response.status(204).build();
     }
 }
-

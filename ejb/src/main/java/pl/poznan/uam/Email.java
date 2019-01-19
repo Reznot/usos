@@ -27,5 +27,5 @@ public class Email {
         message.setText(body);
 
         Transport.send(message);
-    }
+}
 }
