@@ -102,8 +102,6 @@ public class DatabaseInit {
         //todo lepiej ta date wpisz
         subjectGroup2.setHeldDate("2015-02-10");
 
-
-
         GradeEntity grade = new GradeEntity();
         grade.setGrade(5);
         grade.setGradeFromSubjectGroup(subjectGroup);

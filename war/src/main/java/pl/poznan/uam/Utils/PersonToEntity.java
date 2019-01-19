@@ -13,6 +13,8 @@ public class PersonToEntity {
         personEntity.setEmail(studentDTO.getEmail());
         personEntity.setPesel(studentDTO.getPesel());
         personEntity.setIndexNumber(studentDTO.getIndexNumber());
+        personEntity.setStatusStance(studentDTO.getStatusStance());
+        personEntity.setPosition(studentDTO.getPosition());
         return personEntity;
     }
 
@@ -24,6 +26,7 @@ public class PersonToEntity {
         personEntity.setEmail(employeeDTO.getEmail());
         personEntity.setTitles(employeeDTO.getTitles());
         personEntity.setPosition(employeeDTO.getPosition());
+        personEntity.setStatusStance(employeeDTO.getStatusStance());
         return personEntity;
     }
 }

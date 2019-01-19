@@ -6,6 +6,7 @@ import pl.poznan.uam.DTOs.EmployeeDTO;
 import pl.poznan.uam.DTOs.Grade;
 import pl.poznan.uam.DTOs.GradeDTO;
 import pl.poznan.uam.DTOs.PersonShortDTO;
+import pl.poznan.uam.Email;
 import pl.poznan.uam.QueriesMapping.StudentWithSubjectAndGrades;
 import pl.poznan.uam.Utils.GradeToEntity;
 import pl.poznan.uam.Utils.PDFFromJson;
@@ -14,6 +15,7 @@ import pl.poznan.uam.entities.GradeEntity;
 import pl.poznan.uam.entities.PersonEntity;
 
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -29,6 +31,9 @@ public class GradeController {
 
     @EJB
     private GradeDAO gradeDAO;
+
+    @EJB
+    private Email email;
 
     @POST
     @Path("add")
@@ -51,10 +56,14 @@ public class GradeController {
     @GET
     @Path("studentsummary")
     @Produces("application/json; charset=UTF-8")
-    public Response getStudentGrades(@Context UriInfo info) throws IOException, DocumentException {
+    public Response getStudentGrades(@Context UriInfo info) throws IOException, DocumentException, MessagingException {
         long studentId = Long.parseLong(info.getQueryParameters().getFirst("studentId"));
         PDFFromJson pdfFromJson = new PDFFromJson();
-        pdfFromJson.createSummary(gradeDAO.getStudentGradesFromAllSubjects(studentId));
+        String url = pdfFromJson.createSummary(gradeDAO.getStudentGradesFromAllSubjects(studentId));
+        email.sendMail(gradeDAO.getStudentGradesFromAllSubjects(studentId).getEmail(), "Summary of your studies", "Hi!\n" +
+                "Summary of your studies is now generated. To download it go "+url +
+                "  Have a nice day!\n" +
+                "  USOS\n");
         return Response.status(200).entity((gradeDAO.getStudentGradesFromAllSubjects(studentId))).build();
     }
 

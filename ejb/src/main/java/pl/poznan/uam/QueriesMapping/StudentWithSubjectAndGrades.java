@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -13,5 +12,6 @@ import java.util.List;
 public class StudentWithSubjectAndGrades {
     private String name;
     private String surname;
-    private List<SubjectGroupShort> subjectDetails;
+    private String email;
+    private List<SubjectWithGrade> subjectDetails;
 }

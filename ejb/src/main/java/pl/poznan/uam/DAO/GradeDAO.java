@@ -1,17 +1,13 @@
 package pl.poznan.uam.DAO;
 
-//import org.graalvm.compiler.lir.LIRInstruction;
 import pl.poznan.uam.QueriesMapping.GradesFromSubject;
 import pl.poznan.uam.QueriesMapping.StudentWithSubjectAndGrades;
-import pl.poznan.uam.QueriesMapping.SubjectGroupShort;
+import pl.poznan.uam.QueriesMapping.SubjectWithGrade;
 import pl.poznan.uam.entities.GradeEntity;
-import pl.poznan.uam.entities.PersonEntity;
-import pl.poznan.uam.entities.SubjectGroupEntity;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.Response;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,15 +27,15 @@ public class GradeDAO {
 //                "from GradeEntity g join g.person p join g.gradeFromSubjectGroup sg join g.gradeFromSubject s " +
 //                "where p.id=:studentId", Object[].class).setParameter("studentId", person_id).getResultList();
 
-        List<Object[]> resultList = em.createQuery("select p.name, p.surname, g.grade, sg.classType, s.subjectName " +
+        List<Object[]> resultList = em.createQuery("select p.name, p.surname,p.email, g.grade, sg.classType, s.subjectName " +
                 "from GradeEntity g join g.person p join g.gradeFromSubjectGroup sg join g.gradeFromSubject s " +
                 "where p.id=:studentId", Object[].class).setParameter("studentId", person_id).getResultList();
 
 
-        List<SubjectGroupShort> subjectsAndGrades = new LinkedList<>();
-        StudentWithSubjectAndGrades studentWithSubjectAndGrades = new StudentWithSubjectAndGrades(resultList.get(0)[0].toString(), resultList.get(0)[1].toString(), subjectsAndGrades);
+        List<SubjectWithGrade> subjectsAndGrades = new LinkedList<>();
+        StudentWithSubjectAndGrades studentWithSubjectAndGrades = new StudentWithSubjectAndGrades(resultList.get(0)[0].toString(), resultList.get(0)[1].toString(), resultList.get(0)[2].toString(), subjectsAndGrades);
         for(Object[] object : resultList){
-            SubjectGroupShort subjectData = new SubjectGroupShort((int) object[2], object[3].toString(), object[4].toString());
+            SubjectWithGrade subjectData = new SubjectWithGrade((int) object[3], object[4].toString(), object[5].toString());
             subjectsAndGrades.add(subjectData);
         }
 

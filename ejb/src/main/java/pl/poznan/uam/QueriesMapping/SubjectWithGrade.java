@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectGroupShort {
+public class SubjectWithGrade {
     private int grade;
     private String subjectType;
     private String subjectName;
