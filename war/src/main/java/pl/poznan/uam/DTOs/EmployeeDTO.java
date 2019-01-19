@@ -17,7 +17,7 @@ public class EmployeeDTO implements Serializable {
     private String email;
     private String titles;
     private String position;
-    private int statusStance;
+    private int statusStance=1;
 
     public EmployeeDTO(PersonEntity personEntity){
         pesel=personEntity.getPesel();
@@ -26,6 +26,6 @@ public class EmployeeDTO implements Serializable {
         email=personEntity.getEmail();
         titles=personEntity.getTitles();
         position=personEntity.getPosition();
-        statusStance=1;
+        statusStance=personEntity.getStatusStance();
     }
 }

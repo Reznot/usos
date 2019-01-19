@@ -42,6 +42,7 @@ public class EmployeeController {
     @Consumes("application/json; charset=UTF-8")
     public Response updateEmployee(EmployeeDTO employeeDTO, @PathParam("id") long id){
         if(!personDAO.getPersonById(id).isPresent()) return Response.status(404).build();
+        if(personDAO.getPersonById(id).get().getPosition().equals("student")) return Response.status(400).build();
         personDAO.update(PersonToEntity.employeeToEntity(employeeDTO), id);
         return Response.status(200).build();
     }
