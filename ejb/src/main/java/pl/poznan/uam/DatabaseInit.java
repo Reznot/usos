@@ -54,12 +54,27 @@ public class DatabaseInit {
         person3.setPesel("12345678901");
         person3.setPosition("student");
 
+        PersonEntity person4 = new PersonEntity();
+        person4.setName("Jerzy");
+        person4.setSurname("Jaworski");
+        person4.setEmail("jrj@amu.edu.pl");
+        person4.setPesel("12345678901");
+        person4.setPosition("prowadzący");
+        person4.setTitles("profesor");
+
         SubjectEntity subject = new SubjectEntity();
         subject.setSubjectName("Wstęp do Rachunku Prawdopodobieństwa");
         subject.setSemester("lato");
         subject.setSubjectCode("WRP17");
         subject.setYear(2017);
         subject.setEtcs(5);
+
+        SubjectEntity subject2 = new SubjectEntity();
+        subject2.setSubjectName("Analiza Matematyczna");
+        subject2.setSemester("lato");
+        subject2.setSubjectCode("ANI18");
+        subject2.setYear(2018);
+        subject2.setEtcs(6);
 
         SubjectGroupEntity subjectGroup = new SubjectGroupEntity();
         subjectGroup.setSubject(subject);
@@ -75,6 +90,20 @@ public class DatabaseInit {
         //todo lepiej ta date wpisz
         subjectGroup.setHeldDate("2014-02-10");
 
+        SubjectGroupEntity subjectGroup2 = new SubjectGroupEntity();
+        subjectGroup2.setSubject(subject2);
+        subjectGroup2.setAvailablePlaces(25);
+        subjectGroup2.setClassType("laboratoria");
+        subjectGroup2.setGroupShortcut("1CF");
+
+        subjectGroup2.setStudents(studentList);
+        subjectGroup2.setNumberOfStudents(studentList.size());
+        subjectGroup2.setLecturer(person4);
+        //todo lepiej ta date wpisz
+        subjectGroup2.setHeldDate("2015-02-10");
+
+
+
         GradeEntity grade = new GradeEntity();
         grade.setGrade(5);
         grade.setGradeFromSubjectGroup(subjectGroup);
@@ -87,12 +116,22 @@ public class DatabaseInit {
         grade2.setGradeFromSubject(subject);
         grade2.setPerson(person3);
 
+        GradeEntity grade3 = new GradeEntity();
+        grade3.setGrade(4);
+        grade3.setGradeFromSubjectGroup(subjectGroup2);
+        grade3.setGradeFromSubject(subject2);
+        grade3.setPerson(person1);
+
         em.persist(person1);
-        em.persist(person2);
+        em.persist(person4);
         em.persist(person3);
+        em.persist(person2);
+        em.persist(subject2);
         em.persist(subject);
+        em.persist(subjectGroup2);
         em.persist(subjectGroup);
         em.persist(grade);
         em.persist(grade2);
+        em.persist(grade3);
     }
 }

@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class PersonEntity extends AbstractEntity{
 
     private int indexNumber;
@@ -49,19 +50,6 @@ public class PersonEntity extends AbstractEntity{
         return grades.stream().findAny().get();
     }
 
-    public void update(PersonEntity person) {
-        indexNumber=person.getIndexNumber();
-        pesel = person.getPesel();
-        name = person.getName();
-        surname = person.getSurname();
-        email = person.getEmail();
-        titles = person.getTitles();
-        statusStance = getStatusStance();
-        position=person.getPosition();
-        subjectGroups.add(person.returnSubjectGroup());
-        lecturedGroup.add(person.returnLecturedGroup());
-        grades.add(person.returnGrade());
-    }
 
     public String getNameAndSurname(){
         return getName()+" "+getSurname();
