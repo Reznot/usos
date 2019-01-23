@@ -49,10 +49,27 @@ public class PersonEntity extends AbstractEntity{
     public GradeEntity returnGrade() {
         return grades.stream().findAny().get();
     }
-
-
     public String getNameAndSurname(){
         return getName()+" "+getSurname();
     }
 
+    public void updateEmployee(PersonEntity person) {
+        email=person.getEmail();
+        name=person.getName();
+        surname=person.getSurname();
+        pesel=person.getPesel();
+        position=person.getPosition();
+        titles = person.getTitles();
+        statusStance=person.getStatusStance();
+    }
+
+    public void updateStudent(PersonEntity person) {
+        email=person.getEmail();
+        indexNumber=person.getIndexNumber();
+        name=person.getName();
+        surname=person.getSurname();
+        pesel=person.getPesel();
+        position=person.getPosition();
+        statusStance=person.getStatusStance();
+    }
 }

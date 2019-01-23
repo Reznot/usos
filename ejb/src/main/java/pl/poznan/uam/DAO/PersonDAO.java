@@ -37,10 +37,12 @@ public class PersonDAO {
         em.remove(em.contains(new PersonEntity((id))) ? new PersonEntity(id) : em.merge(new PersonEntity((id))));
     }
 
-    public PersonEntity update(PersonEntity person, long id) {
-        person.setId(id);
-        em.merge(person);
-        return person;
+    public void update(PersonEntity person, long id) {
+        PersonEntity personFromDbase = em.find(PersonEntity.class, id);
+        if(person.getPosition().equals("student")) personFromDbase.updateStudent(person);
+        else personFromDbase.updateEmployee(person);
+        em.merge(personFromDbase);
+
     }
 
 }

@@ -46,6 +46,7 @@ public class GradeDAO {
     }
 
     public List<GradesFromSubject> getGradesFromSubjectGroup(String groupShortcut){
+        //TODO: Klasy do joina
 //        List<GradesFromSubject> resultList = em.createQuery("select new GradesFromSubject(p.name, p.surname, g.grade) from GradeEntity g
 //        join g.person p join g.gradeFromSubjectGroup sg where sg.groupShortcut=:grShortcut", Object[].class)
 //                .setParameter("grShortcut", groupShortcut).getResultList();
