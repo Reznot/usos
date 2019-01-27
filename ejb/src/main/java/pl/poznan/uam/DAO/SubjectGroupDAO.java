@@ -11,10 +11,9 @@ import java.util.*;
 @Stateless
 public class SubjectGroupDAO {
 
-    @PersistenceContext(unitName = "primary")//nie wiem czy tak powinno byc
+    @PersistenceContext(unitName = "primary")
     protected EntityManager em;
     private Set<SubjectGroupEntity> subjectGroupSet = new HashSet<>();
-    private final Set<PersonEntity> studentsInGroup = new HashSet<>();
 
     public Optional<SubjectGroupEntity> getSubjectGroupByID(long id){
         return Optional.of(em.find(SubjectGroupEntity.class, id));
@@ -69,12 +68,10 @@ public class SubjectGroupDAO {
         return subjectGroup;
     }
 
-    //round2
-    public SubjectGroupEntity addStudentToSubjectGroup2(SubjectGroupEntity subjectGroup, PersonEntity person){
-        studentsInGroup.add(person);
-        subjectGroup.setStudents(studentsInGroup);
-        em.merge(subjectGroup);
-        return subjectGroup;
+    public SubjectGroupEntity addStudentToSubjectGroup2(Long groupId, Long personId){
+        SubjectGroupEntity group = em.find(SubjectGroupEntity.class, groupId);
+        PersonEntity person = em.find(PersonEntity.class, personId);
+        group.addStudents(person);
+        return group;
     }
-
 }

@@ -1,17 +1,15 @@
 package pl.poznan.uam.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class PersonEntity extends AbstractEntity{
 
     private int indexNumber;
@@ -23,7 +21,7 @@ public class PersonEntity extends AbstractEntity{
     private int statusStance;
     private String position;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
     private Set<SubjectGroupEntity> subjectGroups;
 
     @OneToMany(mappedBy = "lecturer")
@@ -35,6 +33,7 @@ public class PersonEntity extends AbstractEntity{
     public PersonEntity(long id) {
         super(id);
     }
+    public PersonEntity(){};
 
     public void addSubjectGroup(SubjectGroupEntity subjectGroup) {
         this.subjectGroups.add(subjectGroup);

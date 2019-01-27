@@ -31,7 +31,6 @@ public class GradeDAO {
                 "from GradeEntity g join g.person p join g.gradeFromSubjectGroup sg join g.gradeFromSubject s " +
                 "where p.id=:studentId", Object[].class).setParameter("studentId", person_id).getResultList();
 
-
         List<SubjectWithGrade> subjectsAndGrades = new LinkedList<>();
 
         for(Object[] object : resultList){
@@ -39,10 +38,8 @@ public class GradeDAO {
             subjectsAndGrades.add(subjectData);
         }
 
-        StudentWithSubjectAndGrades studentWithSubjectAndGrades = new StudentWithSubjectAndGrades(resultList.get(0)[0].toString(),
+        return new StudentWithSubjectAndGrades(resultList.get(0)[0].toString(),
                 resultList.get(0)[1].toString(), resultList.get(0)[2].toString(), subjectsAndGrades);
-
-        return studentWithSubjectAndGrades;
     }
 
     public List<GradesFromSubject> getGradesFromSubjectGroup(String groupShortcut){

@@ -1,15 +1,19 @@
 package pl.poznan.uam.entities;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Set;
 
-@Data
+
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 public class SubjectEntity extends AbstractEntity{
 
     public SubjectEntity(long id){

@@ -1,26 +1,26 @@
 package pl.poznan.uam.entities;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 public class SubjectGroupEntity extends AbstractEntity{
 
     private int numberOfStudents;
     private int availablePlaces;
     private String groupShortcut;
-    private String heldDate;   //TODO wpisuj np "Tueasday, 7PM"
-    //TODO zrobic z tego enuma
+    private String heldDate;
     private String classType;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<PersonEntity> students;
 
     @ManyToOne
@@ -79,6 +79,4 @@ public class SubjectGroupEntity extends AbstractEntity{
         heldDate = subjectGroup.getHeldDate();
         classType = subjectGroup.getClassType();
     }
-
-
 }
