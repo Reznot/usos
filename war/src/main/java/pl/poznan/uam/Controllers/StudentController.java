@@ -51,6 +51,7 @@ public class StudentController {
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
     public Response removeStudent(@PathParam("id") long id) {
+        if(!personDAO.getPersonById(id).get().getPosition().equals("student")) return Response.status(400).build();
         personDAO.remove(id);
         return Response.status(204).build();
     }

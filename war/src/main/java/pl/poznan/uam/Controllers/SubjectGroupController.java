@@ -32,8 +32,6 @@ public class SubjectGroupController {
     @EJB
     private SubjectDAO subjectDAO;
 
-    @EJB
-    private PersonDAO personDAO;
 
     @GET
     @Produces("application/json; charset=UTF-8")
@@ -92,18 +90,6 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
-    @PUT
-    @Path("addstudent")
-    @Consumes("application/json; charset=UTF-8")
-    public Response addStudentToGroup(@Context UriInfo info){
-        long groupId = Long.parseLong(info.getQueryParameters().getFirst("groupId"));
-        long studentId = Long.parseLong(info.getQueryParameters().getFirst("studentId"));
-        if(!(personDAO.getPersonById(studentId).isPresent())) return Response.status(404).build();
-        if(!(subjectGroupDAO.getSubjectGroupByID(groupId).isPresent())) return Response.status(404).build();
-        subjectGroupDAO.addStudentToSubjectGroup(subjectGroupDAO.getSubjectGroupByID(groupId).get(), personDAO.getPersonById(studentId).get());
-        return Response.status(200).build();
-    }
-
     @GET
     @Path("groupsBySubjectName")
     @Produces("application/json; charset=UTF-8")
@@ -116,16 +102,15 @@ public class SubjectGroupController {
         return Response.status(200).entity(ret).build();
     }
 
-    //round 2
     @PUT
-    @Path("addstudent2")
+    @Path("addstudent")
     @Consumes("application/json; charset=UTF-8")
     public Response addStudentToGroup2(@Context UriInfo info){
         long groupId = Long.parseLong(info.getQueryParameters().getFirst("groupId"));
         long studentId = Long.parseLong(info.getQueryParameters().getFirst("studentId"));
-        if(!(personDAO.getPersonById(studentId).isPresent())) return Response.status(404).build();
-        if(!(subjectGroupDAO.getSubjectGroupByID(groupId).isPresent())) return Response.status(404).build();
-        subjectGroupDAO.addStudentToSubjectGroup2(subjectGroupDAO.getSubjectGroupByID(groupId).get(), personDAO.getPersonById(studentId).get());
+//        if(!(personDAO.getPersonById(studentId).isPresent())) return Response.status(404).build();
+//        if(!(subjectGroupDAO.getSubjectGroupByID(groupId).isPresent())) return Response.status(404).build();
+        subjectGroupDAO.addStudentToSubjectGroup2(groupId, studentId);
         return Response.status(200).build();
     }
 
